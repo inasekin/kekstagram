@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Иван Насекин](https://up.htmlacademy.ru/javascript/24/user/1785963).
-* Наставник: `Неизвестно`.
+* Наставник: [Андрей Устименко](https://htmlacademy.ru/profile/spiritmoon).
 
 ---
 
