@@ -16,5 +16,5 @@ function checkMaxStringLength(checkedString, maxLength) {
 }
 
 //Инициализация функций
-console.log(getRandomInt(0, 2));
+getRandomInt(0, 2);
 checkMaxStringLength('Какой-то тестовый комментарий', 140);
