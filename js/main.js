@@ -2,14 +2,14 @@
 function getRandomInt(min, max) {
   if (min >= 0 && max >= 0) {
     if (max <= min) {
-      console.log('Не верно задан диапазон!');
+      return false;
     } else {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min)) + min;
     }
   } else {
-    console.log('Диапозон может состоять только из положительных значений');
+    return false;
   }
 }
 
