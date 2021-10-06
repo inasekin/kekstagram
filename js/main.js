@@ -1,8 +1,8 @@
 //Функция, возвращающая случайное целое число из переданного диапазона включительно (MDN web docs)
 function getRandomInt(min, max) {
   if (min >= 0 && max >= 0 && max >= min) {
-    let minUpdate = Math.ceil(min);
-    let maxUpdate = Math.floor(max);
+    const minUpdate = Math.ceil(min);
+    const maxUpdate = Math.floor(max);
     return Math.floor(Math.random() * (maxUpdate - minUpdate)) + minUpdate;
   } else {
     return null;
