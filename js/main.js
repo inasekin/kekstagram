@@ -1,14 +1,13 @@
 //Функция, возвращающая случайное целое число из переданного диапазона включительно (MDN web docs)
 function getRandomInt(min, max) {
   if (min >= 0 && max >= 0 && max >= min) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
+    let minUpdate = Math.ceil(min);
+    let maxUpdate = Math.floor(max);
+    return Math.floor(Math.random() * (maxUpdate - minUpdate)) + minUpdate;
   } else {
-    return false;
+    return null;
   }
 }
-
 
 //Функция для проверки максимальной длины строки
 function checkMaxStringLength(checkedString, maxLength) {
@@ -16,5 +15,5 @@ function checkMaxStringLength(checkedString, maxLength) {
 }
 
 //Инициализация функций
-getRandomInt(0, 2);
+getRandomInt(10, 0);
 checkMaxStringLength('Какой-то тестовый комментарий', 140);
