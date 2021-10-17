@@ -1,5 +1,5 @@
-import {descriptions, names, textComments} from './utils/data.js';
-import {getRandomInt, checkMaxStringLength} from './utils/util.js';
+import {descriptions, names, textComments} from './data.js';
+import {getRandomInt, checkMaxStringLength} from './util.js';
 
 const MIN_DESCRIPTION_IDENTIFIER = 1;
 const MAX_DESCRIPTION_IDENTIFIER = 25;
