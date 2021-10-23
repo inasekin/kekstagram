@@ -1,16 +1,16 @@
 import {getArrayOfPhotos} from './util.js';
 
-const picturesBlock = document.querySelector('.pictures');
+const picturesContainer = document.querySelector('.pictures');
 const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
-const similarListFragment = document.createDocumentFragment();
+const photosListFragment = document.createDocumentFragment();
 
-const photos = getArrayOfPhotos();
-photos.forEach((photo) => {
+const photosList = getArrayOfPhotos();
+photosList.forEach((photo) => {
   const photoElement = randomUserImageTemplate.cloneNode(true);
   photoElement.querySelector('.picture__img').src = photo.url;
   photoElement.querySelector('.picture__likes').textContent = photo.likes;
   photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
-  similarListFragment.appendChild(photoElement);
+  photosListFragment.appendChild(photoElement);
 });
 
-picturesBlock.appendChild(similarListFragment);
+picturesContainer.appendChild(photosListFragment);

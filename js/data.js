@@ -9,13 +9,13 @@ const MAX_NUMBER_OF_LIKES = 200;
 const MIN_NUMBER_FOR_LIKES = 1;
 const MAX_NUMBER_FOR_LIKES = 6;
 
-const descriptions = [
+const DESCRIPTIONS = [
   'Весело',
   'Осень',
   'На учебе',
   'скучно',
 ];
-const names = [
+const NAMES = [
   'Иван',
   'Марк',
   'Евгений',
@@ -24,7 +24,7 @@ const names = [
   'Илья',
   'Вера',
 ];
-const textComments = [
+const COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -35,4 +35,4 @@ const textComments = [
 
 const getRandomComments = () => Array.from({length: getRandomInt(MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES)}, () => getRandomComment());
 
-export {descriptions, names, textComments, getRandomComments, MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER, MIN_NUMBER_OF_LIKES, MAX_NUMBER_OF_LIKES, MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES};
+export {DESCRIPTIONS, NAMES, COMMENTS, getRandomComments, MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER, MIN_NUMBER_OF_LIKES, MAX_NUMBER_OF_LIKES, MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES};

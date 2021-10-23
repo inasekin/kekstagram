@@ -1,7 +1,7 @@
 import {
-  descriptions,
-  names,
-  textComments,
+  DESCRIPTIONS,
+  NAMES,
+  COMMENTS,
   getRandomComments,
   MIN_DESCRIPTION_IDENTIFIER,
   MAX_DESCRIPTION_IDENTIFIER,
@@ -28,14 +28,14 @@ function checkMaxStringLength(checkedString, maxLength) {
 const getRandomComment = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
   avatar: `img/avatar-${getRandomInt(MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES)}.svg`,
-  message: textComments[getRandomInt(0, textComments.length - 1)],
-  name: names[getRandomInt(0, names.length - 1)],
+  message: COMMENTS[getRandomInt(0, COMMENTS.length - 1)],
+  name: NAMES[getRandomInt(0, NAMES.length - 1)],
 });
 
 const getRandomPhoto = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
   url: `photos/${getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER)}.jpg`,
-  descriptions: descriptions[getRandomInt(0, descriptions.length - 1)],
+  DESCRIPTIONS: DESCRIPTIONS[getRandomInt(0, DESCRIPTIONS.length - 1)],
   likes: getRandomInt(MIN_NUMBER_OF_LIKES, MAX_NUMBER_OF_LIKES),
   comments: getRandomComments(),
 });
