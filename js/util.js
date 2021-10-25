@@ -12,4 +12,6 @@ function checkMaxStringLength(checkedString, maxLength) {
   return checkedString.length <= maxLength;
 }
 
-export {getRandomInt, checkMaxStringLength};
+checkMaxStringLength('Какой-то тестовый комментарий', 140);
+
+export {getRandomInt};
