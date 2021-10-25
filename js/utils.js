@@ -1,4 +1,4 @@
-function getRandomInt(min, max) {
+export function getRandomInt(min, max) {
   if (min >= 0 && max >= 0 && max >= min) {
     const minUpdate = Math.ceil(min);
     const maxUpdate = Math.floor(max);
@@ -13,5 +13,3 @@ function checkMaxStringLength(checkedString, maxLength) {
 }
 
 checkMaxStringLength('Какой-то тестовый комментарий', 140);
-
-export {getRandomInt};

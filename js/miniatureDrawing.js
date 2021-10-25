@@ -8,7 +8,7 @@ import {MIN_DESCRIPTION_IDENTIFIER,
   NAMES,
   COMMENTS
 } from './data.js';
-import {getRandomInt} from './util.js';
+import {getRandomInt} from './utils.js';
 
 const getRandomComment = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
@@ -28,23 +28,25 @@ const getRandomPhoto = () => ({
 });
 
 function getArrayOfPhotos () {
-  return Array.from(Array(MAX_DESCRIPTION_IDENTIFIER), (getRandomPhoto));
+  return Array.from({length: MAX_DESCRIPTION_IDENTIFIER}, () => getRandomPhoto());
 }
-const picturesContainer = document.querySelector('.pictures');
-const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
-const photosListFragment = document.createDocumentFragment();
 
-const photosList = getArrayOfPhotos();
+function renderPhotos() {
+  const picturesContainer = document.querySelector('.pictures');
+  const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
+  const photosListFragment = document.createDocumentFragment();
 
-function generatePhotos()  {
+  const photosList = getArrayOfPhotos();
+
   photosList.forEach((photo) => {
     const photoElement = randomUserImageTemplate.cloneNode(true);
     photoElement.querySelector('.picture__img').src = photo.url;
     photoElement.querySelector('.picture__likes').textContent = photo.likes;
     photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
+
     photosListFragment.appendChild(photoElement);
   });
-  return picturesContainer.appendChild(photosListFragment);
-}
 
-generatePhotos();
+  picturesContainer.appendChild(photosListFragment);
+}
+renderPhotos();
