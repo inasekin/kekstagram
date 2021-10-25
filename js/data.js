@@ -1,5 +1,3 @@
-import {getRandomInt, getRandomComment} from './util.js';
-
 const MIN_DESCRIPTION_IDENTIFIER = 1;
 const MAX_DESCRIPTION_IDENTIFIER = 25;
 
@@ -33,6 +31,4 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const getRandomComments = () => Array.from({length: getRandomInt(MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES)}, () => getRandomComment());
-
-export {DESCRIPTIONS, NAMES, COMMENTS, getRandomComments, MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER, MIN_NUMBER_OF_LIKES, MAX_NUMBER_OF_LIKES, MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES};
+export {MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER, MIN_NUMBER_OF_LIKES, MAX_NUMBER_OF_LIKES, MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES, DESCRIPTIONS, NAMES, COMMENTS};
