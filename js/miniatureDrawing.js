@@ -9,6 +9,7 @@ import {MIN_DESCRIPTION_IDENTIFIER,
   COMMENTS
 } from './data.js';
 import {getRandomInt} from './utils.js';
+import {renderFullSizePictureModal} from './fullsizePhotoOpen.js';
 
 const getRandomComment = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
@@ -43,6 +44,10 @@ function renderPhotos() {
     photoElement.querySelector('.picture__img').src = photo.url;
     photoElement.querySelector('.picture__likes').textContent = photo.likes;
     photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
+    photoElement.addEventListener('click', (e) => {
+      e.preventDefault();
+      renderFullSizePictureModal(photo);
+    });
 
     photosListFragment.appendChild(photoElement);
   });
