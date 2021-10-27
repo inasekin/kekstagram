@@ -40,14 +40,30 @@ export function renderFullSizePictureModal (picture) {
   likesCount.textContent = picture.likes;
   commentsCount.textContent = picture.comments.length;
 
-  picture.comments.forEach((comment) => {
-    let commentFragment = document.createDocumentFragment();
-    commentFragment = commentTemplate.cloneNode(true);
-    commentFragment.querySelector('.social__picture').src = comment.avatar;
-    commentFragment.querySelector('.social__picture').alt = comment.name;
-    commentFragment.querySelector('.social__text').textContent = comment.message;
-    socialComments.appendChild(commentFragment);
-  });
+  function generateComment(comment) {
+    let commentFragments = document.createDocumentFragment();
+    commentFragments = commentTemplate.cloneNode(true);
+    const commentAvatar = commentFragments.querySelector('.social__picture');
+    const commentName = commentFragments.querySelector('.social__picture');
+    const commentText = commentFragments.querySelector('.social__text');
+    commentAvatar.src = comment.avatar;
+    commentName.alt = comment.name;
+    commentText.textContent = comment.message;
+    return commentFragments;
+  }
+
+  function generateComments(comments) {
+    const commentsFragments = document.createDocumentFragment();
+    comments.forEach((comment) => {
+      const Commentary = generateComment(comment);
+      commentsFragments.appendChild(Commentary);
+    });
+    socialComments.innerHTML = '';
+    socialComments.appendChild(commentsFragments);
+    return socialComments.querySelectorAll('.social__comment');
+  }
+
+  generateComments(picture.comments);
 
   socialCaption.textContent = picture.description;
 
@@ -55,6 +71,5 @@ export function renderFullSizePictureModal (picture) {
 
   closePictureBtn.addEventListener('click', () => {
     closeFullSizePictureModal();
-    socialComments.innerHTML = '';
   });
 }
