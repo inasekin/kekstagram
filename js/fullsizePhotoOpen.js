@@ -26,7 +26,7 @@ function openFullSizePictureModal () {
   btnLoadNewComments.classList.add('hidden');
 }
 
-export function closeFullSizePictureModal() {
+function closeFullSizePictureModal() {
   fullSizePictureModal.classList.add('hidden');
   bodyNode.classList.remove('modal-open');
   commentCounter.classList.remove('hidden');

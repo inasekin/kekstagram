@@ -32,26 +32,34 @@ function getArrayOfPhotos () {
   return Array.from({length: MAX_DESCRIPTION_IDENTIFIER}, () => getRandomPhoto());
 }
 
-function renderPhotos() {
-  const picturesContainer = document.querySelector('.pictures');
-  const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
+const picturesContainer = document.querySelector('.pictures');
+const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
+const photosList = getArrayOfPhotos();
+
+function renderPhoto(post) {
+  const clonePhotoElements = randomUserImageTemplate.cloneNode(true);
+  const photoComments = clonePhotoElements.querySelector('.picture__comments');
+  const photoLikes = clonePhotoElements.querySelector('.picture__likes');
+  const photo = clonePhotoElements.querySelector('.picture__img');
+  photo.src = post.url;
+  photoComments.textContent = post.comments.length;
+  photoLikes.textContent = post.likes;
+  return clonePhotoElements;
+}
+
+function renderPhotos(posts) {
   const photosListFragment = document.createDocumentFragment();
-
-  const photosList = getArrayOfPhotos();
-
-  photosList.forEach((photo) => {
-    const photoElement = randomUserImageTemplate.cloneNode(true);
-    photoElement.querySelector('.picture__img').src = photo.url;
-    photoElement.querySelector('.picture__likes').textContent = photo.likes;
-    photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
-    photoElement.addEventListener('click', (e) => {
+  posts.forEach((post) => {
+    const picture = renderPhoto(post);
+    picture.addEventListener('click', (e) => {
       e.preventDefault();
-      renderFullSizePictureModal(photo);
+      renderFullSizePictureModal(post);
     });
-
-    photosListFragment.appendChild(photoElement);
+    photosListFragment.appendChild(picture);
   });
 
   picturesContainer.appendChild(photosListFragment);
+  return picturesContainer.querySelectorAll('.picture');
 }
-renderPhotos();
+
+renderPhotos(photosList);
