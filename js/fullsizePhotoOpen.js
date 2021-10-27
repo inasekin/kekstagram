@@ -7,16 +7,24 @@ const closePictureBtn = document.getElementById('picture-cancel');
 const socialComments = fullSizePictureModal.querySelector('.social__comments');
 const socialCaption = document.querySelector('.social__caption');
 const commentTemplate = document.querySelector('#social-comment').content.querySelector('.social__comment');
-let commentFragment = document.createDocumentFragment();
 
 const commentCounter = document.querySelector('.social__comment-count');
 const btnLoadNewComments = document.querySelector('.comments-loader');
+
+const escapeKey = (evt) => evt.key === 'Escape';
+const onCloseEscapeKeydown = function(evt) {
+  if (escapeKey(evt)) {
+    evt.preventDefault();
+    closeFullSizePictureModal();
+  }
+};
 
 export function closeFullSizePictureModal() {
   fullSizePictureModal.classList.add('hidden');
   bodyNode.classList.remove('modal-open');
   commentCounter.classList.remove('hidden');
   btnLoadNewComments.classList.remove('hidden');
+  document.removeEventListener('keydown', onCloseEscapeKeydown);
 }
 
 export function renderFullSizePictureModal (picture) {
@@ -29,15 +37,8 @@ export function renderFullSizePictureModal (picture) {
   likesCount.textContent = picture.likes;
   commentsCount.textContent = picture.comments.length;
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (!fullSizePictureModal.classList.contains('hidden')) {
-        closeFullSizePictureModal();
-      }
-    }
-  });
-
   picture.comments.forEach((comment) => {
+    let commentFragment = document.createDocumentFragment();
     commentFragment = commentTemplate.cloneNode(true);
     commentFragment.querySelector('.social__picture').src = comment.avatar;
     commentFragment.querySelector('.social__picture').alt = comment.name;
@@ -46,6 +47,8 @@ export function renderFullSizePictureModal (picture) {
   });
 
   socialCaption.textContent = picture.description;
+
+  document.addEventListener('keydown', onCloseEscapeKeydown);
 
   closePictureBtn.addEventListener('click', () => {
     closeFullSizePictureModal();
