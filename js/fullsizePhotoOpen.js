@@ -19,6 +19,13 @@ const onCloseEscapeKeydown = function(evt) {
   }
 };
 
+function openFullSizePictureModal () {
+  fullSizePictureModal.classList.remove('hidden');
+  bodyNode.classList.add('modal-open');
+  commentCounter.classList.add('hidden');
+  btnLoadNewComments.classList.add('hidden');
+}
+
 export function closeFullSizePictureModal() {
   fullSizePictureModal.classList.add('hidden');
   bodyNode.classList.remove('modal-open');
@@ -28,11 +35,7 @@ export function closeFullSizePictureModal() {
 }
 
 export function renderFullSizePictureModal (picture) {
-  fullSizePictureModal.classList.remove('hidden');
-  bodyNode.classList.add('modal-open');
-  commentCounter.classList.add('hidden');
-  btnLoadNewComments.classList.add('hidden');
-
+  openFullSizePictureModal();
   fullSizePictureModalImg.src = picture.url;
   likesCount.textContent = picture.likes;
   commentsCount.textContent = picture.comments.length;
