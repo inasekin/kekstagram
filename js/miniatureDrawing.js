@@ -61,3 +61,10 @@ const renderPhotos = (posts) => {
 };
 
 renderPhotos(photosList);
+
+picturesContainer.addEventListener('click', (evt) => {
+  if (evt.target.className === 'picture') {
+    evt.preventDefault();
+    renderFullSizePictureModal(evt.target);
+  }
+});
