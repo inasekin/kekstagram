@@ -32,7 +32,10 @@ function closeFullSizePictureModal() {
   commentCounter.classList.remove('hidden');
   btnLoadNewComments.classList.remove('hidden');
   document.removeEventListener('keydown', onCloseEscapeKeydown);
+  document.removeEventListener('click', closeFullSizePictureModal);
 }
+
+closePictureBtn.addEventListener('click', closeFullSizePictureModal);
 
 export function renderFullSizePictureModal (picture) {
   openFullSizePictureModal();
@@ -68,8 +71,4 @@ export function renderFullSizePictureModal (picture) {
   socialCaption.textContent = picture.description;
 
   document.addEventListener('keydown', onCloseEscapeKeydown);
-
-  closePictureBtn.addEventListener('click', () => {
-    closeFullSizePictureModal();
-  });
 }

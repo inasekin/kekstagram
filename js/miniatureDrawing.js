@@ -51,13 +51,13 @@ function renderPhotos(posts) {
   const photosListFragment = document.createDocumentFragment();
   posts.forEach((post) => {
     const picture = renderPhoto(post);
-    picture.addEventListener('click', (e) => {
+    function handlePhotoClick(e) {
       e.preventDefault();
       renderFullSizePictureModal(post);
-    });
+    }
+    picture.addEventListener('click', handlePhotoClick);
     photosListFragment.appendChild(picture);
   });
-
   picturesContainer.appendChild(photosListFragment);
   return picturesContainer.querySelectorAll('.picture');
 }
