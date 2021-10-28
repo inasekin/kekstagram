@@ -28,15 +28,13 @@ const getRandomPhoto = () => ({
   comments: getRandomComments(),
 });
 
-function getArrayOfPhotos () {
-  return Array.from({length: MAX_DESCRIPTION_IDENTIFIER}, () => getRandomPhoto());
-}
+const getArrayOfPhotos = () => Array.from({length: MAX_DESCRIPTION_IDENTIFIER}, () => getRandomPhoto());
 
 const picturesContainer = document.querySelector('.pictures');
 const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
 const photosList = getArrayOfPhotos();
 
-function renderPhoto(post) {
+const renderPhoto = (post) => {
   const clonePhotoElements = randomUserImageTemplate.cloneNode(true);
   const photoComments = clonePhotoElements.querySelector('.picture__comments');
   const photoLikes = clonePhotoElements.querySelector('.picture__likes');
@@ -45,9 +43,9 @@ function renderPhoto(post) {
   photoComments.textContent = post.comments.length;
   photoLikes.textContent = post.likes;
   return clonePhotoElements;
-}
+};
 
-function renderPhotos(posts) {
+const renderPhotos = (posts) => {
   const photosListFragment = document.createDocumentFragment();
   posts.forEach((post) => {
     const picture = renderPhoto(post);
@@ -60,6 +58,6 @@ function renderPhotos(posts) {
   });
   picturesContainer.appendChild(photosListFragment);
   return picturesContainer.querySelectorAll('.picture');
-}
+};
 
 renderPhotos(photosList);
