@@ -35,23 +35,23 @@ const onCloseEscapeKeydown = (evt) => {
   }
 };
 
-const generateComment = (comment) => {
+const generateComment = (commentEl) => {
   let commentFragments = document.createDocumentFragment();
   commentFragments = commentTemplate.cloneNode(true);
   const commentAvatar = commentFragments.querySelector('.social__picture');
   const commentName = commentFragments.querySelector('.social__picture');
   const commentText = commentFragments.querySelector('.social__text');
-  commentAvatar.src = comment.avatar;
-  commentName.alt = comment.name;
-  commentText.textContent = comment.message;
+  commentAvatar.src = commentEl.avatar;
+  commentName.alt = commentEl.name;
+  commentText.textContent = commentEl.message;
   return commentFragments;
 };
 
 const generateComments = (comments) => {
   const commentsFragments = document.createDocumentFragment();
   comments.forEach((comment) => {
-    const Commentary = generateComment(comment);
-    commentsFragments.appendChild(Commentary);
+    const commentary = generateComment(comment);
+    commentsFragments.appendChild(commentary);
   });
   socialComments.innerHTML = '';
   socialComments.appendChild(commentsFragments);

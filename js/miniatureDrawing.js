@@ -49,11 +49,11 @@ const renderPhotos = (posts) => {
   const photosListFragment = document.createDocumentFragment();
   posts.forEach((post) => {
     const picture = renderPhoto(post);
-    function handlePhotoClick(e) {
-      e.preventDefault();
-      renderFullSizePictureModal(post);
-    }
-    picture.addEventListener('click', handlePhotoClick);
+    picture.addEventListener('click', (evt) => {
+      if (evt.target.className === 'picture__img') {
+        renderFullSizePictureModal(post);
+      }
+    });
     photosListFragment.appendChild(picture);
   });
   picturesContainer.appendChild(photosListFragment);
@@ -61,10 +61,3 @@ const renderPhotos = (posts) => {
 };
 
 renderPhotos(photosList);
-
-picturesContainer.addEventListener('click', (evt) => {
-  if (evt.target.className === 'picture') {
-    evt.preventDefault();
-    renderFullSizePictureModal(evt.target);
-  }
-});
