@@ -36,8 +36,7 @@ const onCloseEscapeKeydown = (evt) => {
 };
 
 const generateComment = (commentEl) => {
-  let commentFragments = document.createDocumentFragment();
-  commentFragments = commentTemplate.cloneNode(true);
+  const commentFragments = commentTemplate.cloneNode(true);
   const commentAvatar = commentFragments.querySelector('.social__picture');
   const commentName = commentFragments.querySelector('.social__picture');
   const commentText = commentFragments.querySelector('.social__text');

@@ -49,15 +49,22 @@ const renderPhotos = (posts) => {
   const photosListFragment = document.createDocumentFragment();
   posts.forEach((post) => {
     const picture = renderPhoto(post);
-    picture.addEventListener('click', (evt) => {
-      if (evt.target.className === 'picture__img') {
-        renderFullSizePictureModal(post);
-      }
-    });
+    picture.dataset.id = post.id;
     photosListFragment.appendChild(picture);
   });
   picturesContainer.appendChild(photosListFragment);
   return picturesContainer.querySelectorAll('.picture');
 };
-
 renderPhotos(photosList);
+
+const handleOpenPicture = (evt) => {
+  const pictureImg = evt.target.closest('a[class="picture"]');
+  if (pictureImg) {
+    evt.preventDefault();
+    const elementId = Number(pictureImg.dataset.id);
+    const currentPicture = photosList.find((el) => el.id === elementId);
+    renderFullSizePictureModal(currentPicture);
+  }
+};
+
+picturesContainer.addEventListener('click', handleOpenPicture);
