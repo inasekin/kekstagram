@@ -26,7 +26,7 @@ const closeFullSizePictureModal = () => {
 };
 closePictureBtn.addEventListener('click', closeFullSizePictureModal);
 
-const escapeKey = (evt) => evt.key === 'Escape';
+const escapeKey = ({key}) => key === 'Escape';
 const onCloseEscapeKeydown = (evt) => {
   if (escapeKey(evt)) {
     evt.preventDefault();
