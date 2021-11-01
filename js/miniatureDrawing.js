@@ -8,7 +8,8 @@ import {MIN_DESCRIPTION_IDENTIFIER,
   NAMES,
   COMMENTS
 } from './data.js';
-import {getRandomInt} from './util.js';
+import {getRandomInt} from './utils.js';
+import {renderFullSizePictureModal} from './fullsizePhotoOpen.js';
 
 const getRandomComment = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
@@ -27,24 +28,43 @@ const getRandomPhoto = () => ({
   comments: getRandomComments(),
 });
 
-function getArrayOfPhotos () {
-  return Array.from(Array(MAX_DESCRIPTION_IDENTIFIER), (getRandomPhoto));
-}
+const getArrayOfPhotos = () => Array.from({length: MAX_DESCRIPTION_IDENTIFIER}, () => getRandomPhoto());
+
 const picturesContainer = document.querySelector('.pictures');
 const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
-const photosListFragment = document.createDocumentFragment();
-
 const photosList = getArrayOfPhotos();
 
-function generatePhotos()  {
-  photosList.forEach((photo) => {
-    const photoElement = randomUserImageTemplate.cloneNode(true);
-    photoElement.querySelector('.picture__img').src = photo.url;
-    photoElement.querySelector('.picture__likes').textContent = photo.likes;
-    photoElement.querySelector('.picture__comments').textContent = photo.comments.length;
-    photosListFragment.appendChild(photoElement);
-  });
-  return picturesContainer.appendChild(photosListFragment);
-}
+const renderPhoto = (post) => {
+  const clonePhotoElements = randomUserImageTemplate.cloneNode(true);
+  const photoComments = clonePhotoElements.querySelector('.picture__comments');
+  const photoLikes = clonePhotoElements.querySelector('.picture__likes');
+  const photo = clonePhotoElements.querySelector('.picture__img');
+  photo.src = post.url;
+  photoComments.textContent = post.comments.length;
+  photoLikes.textContent = post.likes;
+  return clonePhotoElements;
+};
 
-generatePhotos();
+const renderPhotos = (posts) => {
+  const photosListFragment = document.createDocumentFragment();
+  posts.forEach((post) => {
+    const picture = renderPhoto(post);
+    picture.dataset.id = post.id;
+    photosListFragment.appendChild(picture);
+  });
+  picturesContainer.appendChild(photosListFragment);
+  return picturesContainer.querySelectorAll('.picture');
+};
+renderPhotos(photosList);
+
+const handleOpenPicture = (evt) => {
+  const pictureImg = evt.target.closest('a[class="picture"]');
+  if (pictureImg) {
+    evt.preventDefault();
+    const elementId = Number(pictureImg.dataset.id);
+    const currentPicture = photosList.find((el) => el.id === elementId);
+    renderFullSizePictureModal(currentPicture);
+  }
+};
+
+picturesContainer.addEventListener('click', handleOpenPicture);
