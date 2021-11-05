@@ -10,20 +10,13 @@ const socialComments = fullSizePictureModal.querySelector('.social__comments');
 const socialCaption = document.querySelector('.social__caption');
 const commentTemplate = document.querySelector('#social-comment').content.querySelector('.social__comment');
 
-const commentCounter = document.querySelector('.social__comment-count');
-const btnLoadNewComments = document.querySelector('.comments-loader');
-
 const openFullSizePictureModal = () => {
   fullSizePictureModal.classList.remove('hidden');
   bodyNode.classList.add('modal-open');
-  commentCounter.classList.add('hidden');
-  btnLoadNewComments.classList.add('hidden');
 };
 const closeFullSizePictureModal = () => {
   fullSizePictureModal.classList.add('hidden');
   bodyNode.classList.remove('modal-open');
-  commentCounter.classList.remove('hidden');
-  btnLoadNewComments.classList.remove('hidden');
   document.removeEventListener('click', closeFullSizePictureModal);
 };
 closePictureBtn.addEventListener('click', closeFullSizePictureModal);
@@ -48,13 +41,13 @@ const generateComment = (commentEl) => {
 };
 
 const generateComments = (comments) => {
-  const commentsFragment = document.createDocumentFragment();
+  const commentsFragments = document.createDocumentFragment();
   comments.forEach((comment) => {
     const commentary = generateComment(comment);
-    commentsFragment.appendChild(commentary);
+    commentsFragments.appendChild(commentary);
   });
 
-  return commentsFragment;
+  return commentsFragments;
 };
 
 export const renderFullSizePictureModal = (picture) => {
@@ -62,8 +55,42 @@ export const renderFullSizePictureModal = (picture) => {
   fullSizePictureModalImg.src = picture.url;
   likesCount.textContent = picture.likes;
   commentsCount.textContent = picture.comments.length;
-  socialComments.innerHTML = '';
-  socialComments.appendChild(generateComments(picture.comments));
+
+  const commentCounterViews = document.querySelector('.comments-count-for-viewing');
+  const commentCounter = document.querySelector('.social__comment-count');
+  const btnLoadNewComments = document.querySelector('.comments-loader');
+  const currentCommentCount = 5;
+  if (picture.comments.length > currentCommentCount) {
+    btnLoadNewComments.classList.remove('hidden');
+    const currentComments = picture.comments.slice(0, currentCommentCount);
+    console.log(currentComments);
+    socialComments.textContent = '';
+    socialComments.appendChild(generateComments(currentComments));
+    btnLoadNewComments.addEventListener('click', () => {
+      const nextCommentCount = 5 + currentComments;
+      const nextComments = picture.comments.slice(currentComments, nextCommentCount);
+    });
+  } else {
+    btnLoadNewComments.classList.add('hidden');
+  }
+
+  // btnLoadNewComments.addEventListener('click', () => {
+  //   picture.comments.length = Number(commentsCount.textContent);
+  //   console.log(picture.comments);
+  //   socialComments.appendChild(generateComments(picture.comments));
+  // });
+  // if (picture.comments.length > 5) {
+  //   btnLoadNewComments.classList.remove('hidden');
+  //   socialComments.innerHTML = '';
+  //   picture.comments.length = 5;
+  //   commentCounterViews.textContent = 5;
+  //   socialComments.appendChild(generateComments(picture.comments));
+  // } else {
+  //   socialComments.innerHTML = '';
+  //   btnLoadNewComments.classList.add('hidden');
+  //   socialComments.appendChild(generateComments(picture.comments));
+  //   commentCounterViews.textContent = picture.comments.length;
+  // }
   socialCaption.textContent = picture.description;
   document.addEventListener('keydown', onCloseEscapeKeydown);
 };
