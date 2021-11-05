@@ -7,6 +7,12 @@ export const MAX_NUMBER_OF_LIKES = 200;
 export const MIN_NUMBER_FOR_LIKES = 1;
 export const MAX_NUMBER_FOR_LIKES = 6;
 
+export const MAX_COMMENT_LENGTH = 140;
+export const MAX_HASHTAG_LENGTH = 20;
+export const MAX_HASHTAG_ARRAY_LENGTH = 5;
+
+export const REGULAR_EXPRESSION = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+
 export const DESCRIPTIONS = [
   'Весело',
   'Осень',

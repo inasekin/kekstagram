@@ -8,6 +8,12 @@ export const getRandomInt = (min, max) => {
   }
 };
 
-const checkMaxStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
+export const checkMaxStringLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
-checkMaxStringLength('Какой-то тестовый комментарий', 140);
+export const checkArrayDuplicates = (array) => (new Set(array)).size !== array.length;
+
+export const isEscapeKey = (evt) => {
+  if (evt.key === 'Escape') {
+    return true;
+  }
+};

@@ -53,7 +53,7 @@ const renderPhotos = (posts) => {
     photosListFragment.appendChild(picture);
   });
   picturesContainer.appendChild(photosListFragment);
-  return picturesContainer.querySelectorAll('.picture');
+  return picturesContainer;
 };
 renderPhotos(photosList);
 
