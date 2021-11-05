@@ -1,3 +1,5 @@
+import {isEscapeKey} from './utils.js';
+
 const fullSizePictureModal = document.querySelector('.big-picture');
 const fullSizePictureModalImg = fullSizePictureModal.querySelector('.big-picture__img img');
 const likesCount = fullSizePictureModal.querySelector('.likes-count');
@@ -26,9 +28,8 @@ const closeFullSizePictureModal = () => {
 };
 closePictureBtn.addEventListener('click', closeFullSizePictureModal);
 
-const escapeKey = ({key}) => key === 'Escape';
 const onCloseEscapeKeydown = (evt) => {
-  if (escapeKey(evt)) {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeFullSizePictureModal();
     document.removeEventListener('keydown', onCloseEscapeKeydown);
@@ -47,14 +48,14 @@ const generateComment = (commentEl) => {
 };
 
 const generateComments = (comments) => {
-  const commentsFragments = document.createDocumentFragment();
+  const commentsFragment = document.createDocumentFragment();
   comments.forEach((comment) => {
     const commentary = generateComment(comment);
-    commentsFragments.appendChild(commentary);
+    commentsFragment.appendChild(commentary);
   });
   socialComments.innerHTML = '';
-  socialComments.appendChild(commentsFragments);
-  return socialComments.querySelectorAll('.social__comment');
+  socialComments.appendChild(commentsFragment);
+  return socialComments;
 };
 
 export const renderFullSizePictureModal = (picture) => {

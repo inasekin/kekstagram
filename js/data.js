@@ -11,7 +11,7 @@ export const MAX_COMMENT_LENGTH = 140;
 export const MAX_HASHTAG_LENGTH = 20;
 export const MAX_HASHTAG_ARRAY_LENGTH = 5;
 
-export const regularExpression = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+export const REGULAR_EXPRESSION = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
 export const DESCRIPTIONS = [
   'Весело',

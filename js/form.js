@@ -1,5 +1,5 @@
 import {checkMaxStringLength, checkArrayDuplicates, isEscapeKey} from './utils.js';
-import {MAX_COMMENT_LENGTH, MAX_HASHTAG_LENGTH, MAX_HASHTAG_ARRAY_LENGTH, regularExpression} from './data.js';
+import {MAX_COMMENT_LENGTH, MAX_HASHTAG_LENGTH, MAX_HASHTAG_ARRAY_LENGTH, REGULAR_EXPRESSION} from './data.js';
 
 const imageUploadInput = document.querySelector('.img-upload__input');
 const imageUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -21,7 +21,7 @@ const hashtagValidation = () => {
       textHashtags.setCustomValidity('хеш-тег не может состоять только из одной решётки #');
     } else if (hashtag.length > MAX_HASHTAG_LENGTH){
       textHashtags.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решётку #');
-    } else if (!regularExpression.test(hashtag)){
+    } else if (!REGULAR_EXPRESSION.test(hashtag)){
       textHashtags.setCustomValidity('хеш-тег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;');
     } else if (newArrayOfHashtags.length > MAX_HASHTAG_ARRAY_LENGTH){
       textHashtags.setCustomValidity('нельзя указать больше пяти хэш-тегов');
