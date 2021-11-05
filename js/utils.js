@@ -12,8 +12,8 @@ export const checkMaxStringLength = (checkedString, maxLength) => checkedString.
 
 export const checkArrayDuplicates = (array) => (new Set(array)).size !== array.length;
 
-export const isEscapeKey = (evt) => {
-  if (evt.key === 'Escape') {
+export const isEscapeKey = (key) => {
+  if (key === 'Escape') {
     return true;
   }
 };

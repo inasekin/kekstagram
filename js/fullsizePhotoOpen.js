@@ -53,9 +53,8 @@ const generateComments = (comments) => {
     const commentary = generateComment(comment);
     commentsFragment.appendChild(commentary);
   });
-  socialComments.innerHTML = '';
-  socialComments.appendChild(commentsFragment);
-  return socialComments;
+
+  return commentsFragment;
 };
 
 export const renderFullSizePictureModal = (picture) => {
@@ -63,7 +62,8 @@ export const renderFullSizePictureModal = (picture) => {
   fullSizePictureModalImg.src = picture.url;
   likesCount.textContent = picture.likes;
   commentsCount.textContent = picture.comments.length;
-  generateComments(picture.comments);
+  socialComments.innerHTML = '';
+  socialComments.appendChild(generateComments(picture.comments));
   socialCaption.textContent = picture.description;
   document.addEventListener('keydown', onCloseEscapeKeydown);
 };
