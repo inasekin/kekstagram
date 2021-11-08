@@ -1,4 +1,5 @@
-import {MIN_DESCRIPTION_IDENTIFIER,
+import {
+  MIN_DESCRIPTION_IDENTIFIER,
   MAX_DESCRIPTION_IDENTIFIER,
   MIN_NUMBER_OF_LIKES,
   MAX_NUMBER_OF_LIKES,
@@ -57,7 +58,7 @@ const renderPhotos = (posts) => {
 };
 renderPhotos(photosList);
 
-const handleOpenPicture = (evt) => {
+const openPictureHandler = (evt) => {
   const pictureImg = evt.target.closest('a[class="picture"]');
   if (pictureImg) {
     evt.preventDefault();
@@ -67,4 +68,4 @@ const handleOpenPicture = (evt) => {
   }
 };
 
-picturesContainer.addEventListener('click', handleOpenPicture);
+picturesContainer.addEventListener('click', openPictureHandler);
