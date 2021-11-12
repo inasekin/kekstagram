@@ -11,6 +11,9 @@ export const MAX_COMMENT_LENGTH = 140;
 export const MAX_HASHTAG_LENGTH = 20;
 export const MAX_HASHTAG_ARRAY_LENGTH = 5;
 
+export const SCALE_STEP = 25;
+export const SCALE_STEP_HIDDEN = 0.25;
+
 export const REGULAR_EXPRESSION_FOR_HASHTAGS = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
 export const DESCRIPTIONS = [

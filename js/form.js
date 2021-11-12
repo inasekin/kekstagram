@@ -1,4 +1,6 @@
 import {checkMaxStringLength, checkArrayDuplicates, isEscapeKey} from './utils.js';
+import {setDefaultScale} from './scale.js';
+import {defaultFilter} from './slider.js';
 import {
   MAX_COMMENT_LENGTH,
   MAX_HASHTAG_LENGTH,
@@ -83,6 +85,8 @@ const openPhotoEditing = () => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onPhotoEditingKeydown);
   imageUploadCancel.addEventListener('click', onUploadCancelClick);
+  setDefaultScale();
+  defaultFilter();
 };
 
 const closePhotoEditing = () => {
