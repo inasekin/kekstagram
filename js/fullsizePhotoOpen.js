@@ -40,14 +40,17 @@ const generateComment = (commentEl) => {
   const commentAvatar = commentFragments.querySelector('.social__picture');
   const commentName = commentFragments.querySelector('.social__picture');
   const commentText = commentFragments.querySelector('.social__text');
+
   commentAvatar.src = commentEl.avatar;
   commentName.alt = commentEl.name;
   commentText.textContent = commentEl.message;
+
   return commentFragments;
 };
 
 const generateComments = (comments) => {
   const commentsFragments = document.createDocumentFragment();
+
   comments.forEach((comment) => {
     const commentary = generateComment(comment);
     commentsFragments.appendChild(commentary);
@@ -59,6 +62,7 @@ const generateComments = (comments) => {
 const loadNewCommentsHandler = (element) => {
   const nextCommentCount = 5 + currentCommentCount;
   const nextComments = element.comments.slice(currentCommentCount, nextCommentCount);
+
   currentCommentCount = 5 + nextComments.length;
   commentCounterViews.textContent = currentCommentCount;
   socialComments.appendChild(generateComments(nextComments));

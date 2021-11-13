@@ -19,7 +19,7 @@ const getRandomComment = () => ({
   name: NAMES[getRandomInt(0, NAMES.length - 1)],
 });
 
-const getRandomComments = () => Array.from({length: getRandomInt(MIN_NUMBER_FOR_LIKES, 10)}, () => getRandomComment());
+const getRandomComments = () => Array.from({length: getRandomInt(MIN_NUMBER_FOR_LIKES, 15)}, () => getRandomComment());
 
 const getRandomPhoto = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),

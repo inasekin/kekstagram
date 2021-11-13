@@ -5,6 +5,16 @@ const effectButtons = document.querySelectorAll('.effects__radio');
 const effectList = document.querySelector('.effects__list');
 const effectLevel= document.querySelector('.effect-level__value');
 
+const defaultParametersForNoUiSlider = {
+  range: {
+    min: 0,
+    max: 1,
+  },
+  start: 1,
+  step: 0.1,
+  connect: 'lower',
+};
+
 let imageFilter = 'none';
 
 const photoFilterEffects = {
@@ -16,17 +26,9 @@ const photoFilterEffects = {
   'heat': {style: 'brightness', min: 1, max: 3, step: 0.1},
 };
 
-noUiSlider.create(slider, {
-  range: {
-    min: 0,
-    max: 1,
-  },
-  start: 1,
-  step: 0.1,
-  connect: 'lower',
-});
+noUiSlider.create(slider, defaultParametersForNoUiSlider);
 
-const filter = (evt) => {
+const setFilter = (evt) => {
   slider.style.display = evt.target.id === 'effect-none' ? 'none' : 'block';
   imageFilter = evt.target.value;
   formImg.className = `effects__preview--${imageFilter}`;
@@ -43,16 +45,20 @@ const filter = (evt) => {
 slider.noUiSlider.on('update', (___, handle, values) => {
   const photoFilter = photoFilterEffects[imageFilter].style;
   effectLevel.values = values[handle];
+
   switch(imageFilter) {
     case 'chrome':
     case 'sepia':
     case 'heat':
-      formImg.style.filter = `${photoFilter}(${values[handle]})`; break;
+      formImg.style.filter = `${photoFilter}(${values[handle]})`;
+      break;
     case 'marvin':
-      formImg.style.filter = `${photoFilter}(${values[handle]}%)`; break;
+      formImg.style.filter = `${photoFilter}(${values[handle]}%)`;
+      break;
     case 'phobos':
-      formImg.style.filter = `${photoFilter}(${values[handle]}px)`; break;
-    case 'default':
+      formImg.style.filter = `${photoFilter}(${values[handle]}px)`;
+      break;
+    default:
       formImg.style.filter = '';
       effectLevel.valuse = '';
   }
@@ -60,10 +66,10 @@ slider.noUiSlider.on('update', (___, handle, values) => {
 
 effectList.addEventListener('change', (evt) => {
   evt.preventDefault();
-  filter(evt);
+  setFilter(evt);
 });
 
-export const defaultFilter = () => {
+export const setDefaultFilter = () => {
   effectButtons.forEach((button) => {
     if (button.id === 'effect-none') {
       button.setAttribute('checked', 'checked');
@@ -72,6 +78,7 @@ export const defaultFilter = () => {
     slider.style.display = 'none';
     formImg.className = '';
     formImg.style = '';
+    slider.noUiSlider.updateOptions(defaultParametersForNoUiSlider);
   });
 };
 
