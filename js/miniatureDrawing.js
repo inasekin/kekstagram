@@ -10,7 +10,7 @@ import {
   COMMENTS
 } from './data.js';
 import {getRandomInt} from './utils.js';
-import {openBigPicture} from './fullsizePhoto.js';
+import {openFullSizePictureModal} from './fullsizePhoto.js';
 
 const getRandomComment = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
@@ -63,7 +63,7 @@ const openPictureHandler = (evt) => {
   if (pictureImg) {
     const elementId = Number(pictureImg.dataset.id);
     const currentPicture = photosList.find((el) => el.id === elementId);
-    openBigPicture(currentPicture);
+    openFullSizePictureModal(currentPicture);
   }
 };
 picturesContainer.addEventListener('click', openPictureHandler);

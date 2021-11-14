@@ -65,7 +65,7 @@ const renderFullSizePictureModal = (picture) => {
   document.addEventListener('keydown', onCloseEscapeKeydown);
 };
 
-export const openBigPicture = (picture) => {
+export const openFullSizePictureModal = (picture) => {
   renderFullSizePictureModal(picture);
 
   document.addEventListener('keydown', onCloseEscapeKeydown);
