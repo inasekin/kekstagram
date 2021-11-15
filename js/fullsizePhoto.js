@@ -13,33 +13,44 @@ const socialCaption = document.querySelector('.social__caption');
 const commentTemplate = document.querySelector('#social-comment').content.querySelector('.social__comment');
 const btnLoadNewComments = document.querySelector('.comments-loader');
 
+let lastCommentIndex = 0;
+let currentPostCommentsArray = [];
+
 const clearComments = () => {
   socialComments.innerHTML = '';
 };
 
 clearComments();
 
-const generateComments = (commentEl) => {
-  const commentFragments = commentTemplate.cloneNode(true);
-  commentFragments.classList.add('hidden');
-  commentFragments.querySelector('.social__picture').src = `${commentEl.avatar}`;
-  commentFragments.querySelector('.social__picture').alt = `${commentEl.name}`;
-  commentFragments.querySelector('.social__text').textContent = `${commentEl.message}`;
-  socialComments.append(commentFragments);
+const createComment = (commentEl) => {
+  const commentFragment = commentTemplate.cloneNode(true);
+  commentFragment.querySelector('.social__picture').src = `${commentEl.avatar}`;
+  commentFragment.querySelector('.social__picture').alt = `${commentEl.name}`;
+  commentFragment.querySelector('.social__text').textContent = `${commentEl.message}`;
+
+  return commentFragment;
 };
 
-const showGeneratedComments = () => {
-  const hiddenComments = socialComments.querySelectorAll('.social__comment.hidden');
-  Array.from(hiddenComments).slice(0, MAX_ADD_COMMENTS).forEach((comment) => comment.classList.remove('hidden'));
-  const allComments = socialComments.querySelectorAll('.social__comment');
-  const visibleComments = socialComments.querySelectorAll('.social__comment:not(.hidden)');
-  commentCounterViews.textContent = visibleComments.length;
+const createComments = (commentsArray) => {
+  const comments = commentsArray.slice(lastCommentIndex, lastCommentIndex + MAX_ADD_COMMENTS);
+  const listOfComments = document.createDocumentFragment();
 
-  if (allComments.length === visibleComments.length) {
+  comments.forEach((comment) => {
+    const element = createComment(comment);
+    listOfComments.appendChild(element);
+  });
+
+  lastCommentIndex = lastCommentIndex + listOfComments.childElementCount;
+
+  if (lastCommentIndex >= commentsArray.length) {
     btnLoadNewComments.classList.add('hidden');
-  } else {
-    btnLoadNewComments.classList.remove('hidden');
   }
+  commentCounterViews.textContent = lastCommentIndex;
+  return listOfComments;
+};
+
+const addCommentsToPost = () => {
+  socialComments.appendChild(createComments(currentPostCommentsArray));
 };
 
 const onCloseKeydown = (evt) => {
@@ -50,16 +61,19 @@ const onCloseKeydown = (evt) => {
 };
 
 const renderFullSizePictureModal = (picture) => {
-  bodyNode.classList.add('modal-open');
-  fullSizePictureModal.classList.remove('hidden');
+  currentPostCommentsArray = picture.comments;
+  lastCommentIndex = 0;
 
   fullSizePictureModalImg.src = picture.url;
   likesCount.textContent = picture.likes;
   commentsCount.textContent = picture.comments.length;
   socialCaption.textContent = picture.description;
 
-  picture.comments.forEach(generateComments);
-  showGeneratedComments();
+  commentCounterViews.textContent = lastCommentIndex;
+  clearComments();
+  addCommentsToPost(currentPostCommentsArray);
+  bodyNode.classList.add('modal-open');
+  fullSizePictureModal.classList.remove('hidden');
 
   document.addEventListener('keydown', onCloseKeydown);
 };
@@ -69,7 +83,7 @@ export const openFullSizePictureModal = (picture) => {
 
   document.addEventListener('keydown', onCloseKeydown);
 
-  btnLoadNewComments.addEventListener('click', showGeneratedComments);
+  btnLoadNewComments.addEventListener('click', addCommentsToPost);
   closePictureBtn.addEventListener('click', closeFullSizePictureModal);
 };
 
@@ -80,6 +94,6 @@ function closeFullSizePictureModal() {
 
   document.removeEventListener('click', closeFullSizePictureModal);
 
-  btnLoadNewComments.removeEventListener('click', showGeneratedComments);
+  btnLoadNewComments.removeEventListener('click', addCommentsToPost);
   closePictureBtn.removeEventListener('click', closeFullSizePictureModal);
 }
