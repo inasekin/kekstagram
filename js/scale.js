@@ -15,6 +15,11 @@ const scaleMinus = document.querySelector('.scale__control--smaller');
 const scaleValue = document.querySelector('.scale__control--value');
 const scaleHidden = document.querySelector('#hidden-scale');
 
+export const resetImage = () => {
+  formImg.className = '';
+  formImg.style = '';
+};
+
 export const setDefaultScale = () => {
   scaleValue.value = DEFAULT_SCALE_VALUE;
   scaleHidden.value = DEFAULT_SCALE_HIDDEN_VALUE;
@@ -39,10 +44,12 @@ const addScale = () => {
 
 scale.addEventListener('click', (evt) => {
   evt.preventDefault();
-  if (evt.target === scalePlus) {
-    addScale();
-  }
-  if (evt.target === scaleMinus) {
-    reduceScale();
+  switch (evt.target) {
+    case scalePlus:
+      addScale();
+      break;
+    case scaleMinus:
+      reduceScale();
+      break;
   }
 });

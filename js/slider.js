@@ -1,4 +1,4 @@
-import {formImg} from './scale.js';
+import {formImg, resetImage} from './scale.js';
 
 const slider = document.querySelector('.effect-level__slider');
 const effectButtons = document.querySelectorAll('.effects__radio');
@@ -18,12 +18,12 @@ const defaultParametersForNoUiSlider = {
 let imageFilter = 'none';
 
 const photoFilterEffects = {
-  'none': {style: 'none', min: 0, max: 1, step: 0.1},
-  'chrome': {style: 'grayscale', min: 0, max: 1, step: 0.1},
-  'sepia': {style: 'sepia', min: 0, max: 1, step: 0.1},
-  'marvin': {style: 'invert', min: 0, max: 100, step: 1},
-  'phobos': {style: 'blur', min: 0, max: 3, step: 0.1},
-  'heat': {style: 'brightness', min: 1, max: 3, step: 0.1},
+  none: {style: 'none', min: 0, max: 1, step: 0.1},
+  chrome: {style: 'grayscale', min: 0, max: 1, step: 0.1},
+  sepia: {style: 'sepia', min: 0, max: 1, step: 0.1},
+  marvin: {style: 'invert', min: 0, max: 100, step: 1},
+  phobos: {style: 'blur', min: 0, max: 3, step: 0.1},
+  heat: {style: 'brightness', min: 1, max: 3, step: 0.1},
 };
 
 noUiSlider.create(slider, defaultParametersForNoUiSlider);
@@ -74,10 +74,9 @@ export const setDefaultFilter = () => {
     if (button.id === 'effect-none') {
       button.setAttribute('checked', 'checked');
     }
-
     slider.style.display = 'none';
-    formImg.className = '';
-    formImg.style = '';
+    resetImage();
+
     slider.noUiSlider.updateOptions(defaultParametersForNoUiSlider);
   });
 };

@@ -42,11 +42,10 @@ const showGeneratedComments = () => {
   }
 };
 
-const onCloseEscapeKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+const onCloseKeydown = (evt) => {
+  if (isEscapeKey(evt.key)) {
     evt.preventDefault();
     closeFullSizePictureModal();
-    document.removeEventListener('keydown', onCloseEscapeKeydown);
   }
 };
 
@@ -62,13 +61,13 @@ const renderFullSizePictureModal = (picture) => {
   picture.comments.forEach(generateComments);
   showGeneratedComments();
 
-  document.addEventListener('keydown', onCloseEscapeKeydown);
+  document.addEventListener('keydown', onCloseKeydown);
 };
 
 export const openFullSizePictureModal = (picture) => {
   renderFullSizePictureModal(picture);
 
-  document.addEventListener('keydown', onCloseEscapeKeydown);
+  document.addEventListener('keydown', onCloseKeydown);
 
   btnLoadNewComments.addEventListener('click', showGeneratedComments);
   closePictureBtn.addEventListener('click', closeFullSizePictureModal);

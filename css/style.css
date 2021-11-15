@@ -1416,3 +1416,11 @@ main {
 .hidden {
   display: none;
 }
+
+.text__hashtags.error-input {
+  border: 2px solid red;
+}
+
+.text__description.error-input {
+  border: 2px solid red;
+}
