@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="nouislider/nouislider.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Кекстаграм</title>
 </head>
@@ -47,6 +48,7 @@
                     <button type="button" class="scale__control  scale__control--smaller">Уменьшить</button>
                     <input type="text" class="scale__control  scale__control--value" value="55%" title="Image Scale" name="scale" readonly>
                     <button type="button" class="scale__control  scale__control--bigger">Увеличить</button>
+                    <input type="hidden" title="hidden-scale-value" value="1" name="hidden-scale" id="hidden-scale" readonly required>
                   </fieldset>
 
                   <!-- Предварительный просмотр изображения -->
@@ -57,7 +59,7 @@
                   <!-- Изменение глубины эффекта, накладываемого на изображение -->
                   <fieldset class="img-upload__effect-level  effect-level">
                     <input class="effect-level__value" type="number" step="any" name="effect-level" value="">
-                    <div class="effect-level__slider"></div>
+                    <div class="effect-level__slider" id="slider"></div>
                   </fieldset>
 
                   <!-- Кнопка для закрытия формы редактирования изображения -->
@@ -149,7 +151,7 @@
           </div>
 
           <!-- Комментарии к изображению -->
-          <div class="social__comment-count"><span class="social__comment-count-amount">5</span> из <span class="comments-count">125</span> комментариев</div>
+          <div class="social__comment-count"><span class="social__comment-count-amount"></span> из <span class="comments-count"></span> комментариев</div>
           <ul class="social__comments">
 <!--            <li class="social__comment">-->
 <!--              <img class="social__picture" src="img/avatar-4.svg" alt="Аватар комментатора фотографии" width="35" height="35">-->
@@ -240,6 +242,7 @@
       <p class="social__text">{{текст комментария}}</p>
     </li>
   </template>
+  <script src="nouislider/nouislider.js" type="module"></script>
   <script src="js/main.js" type="module"></script>
 </body>
 </html>
