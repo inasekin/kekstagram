@@ -10,7 +10,7 @@ import {
   COMMENTS
 } from './data.js';
 import {getRandomInt} from './utils.js';
-import {openFullSizePictureModal} from './fullsizePhoto.js';
+import {openFullSizePictureModal} from './fullsize-photo.js';
 
 const getRandomComment = () => ({
   id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
