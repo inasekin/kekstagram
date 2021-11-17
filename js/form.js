@@ -7,12 +7,16 @@ import {
   MAX_HASHTAG_ARRAY_LENGTH,
   REGULAR_EXPRESSION_FOR_HASHTAGS
 } from './data.js';
+import {sendData} from './api.js';
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const imageUploadInput = document.querySelector('.img-upload__input');
 const imageUploadOverlay = document.querySelector('.img-upload__overlay');
 const imageUploadCancel = document.querySelector('.img-upload__cancel');
 const textHashtags = document.querySelector('.text__hashtags');
 const textComment = document.querySelector('.text__description');
+const formUpload = document.querySelector('.img-upload__form');
+const imgPreviewElement = imageUploadOverlay.querySelector('.img-upload__preview  > img');
 
 const checkHashtagValidation = (hashtags) => {
   let resultOfCheckValidation = '';
@@ -20,28 +24,21 @@ const checkHashtagValidation = (hashtags) => {
     switch (true) {
       case hashtags[0] === '':
         textHashtags.value = textHashtags.value.trim();
-        resultOfCheckValidation = '';
-        break;
+        return resultOfCheckValidation = '';
       case !hashtag.startsWith('#'):
-        resultOfCheckValidation = 'хеш-тег должен начинаться с решётки #';
-        break;
+        return resultOfCheckValidation = 'хеш-тег должен начинаться с решётки #';
       case hashtag === '#':
-        resultOfCheckValidation = 'хеш-тег не может состоять только из одной решётки #';
-        break;
+        return resultOfCheckValidation = 'хеш-тег не может состоять только из одной решётки #';
       case hashtag.length > MAX_HASHTAG_LENGTH:
-        resultOfCheckValidation = 'максимальная длина одного хэш-тега 20 символов, включая решётку #';
-        break;
+        return resultOfCheckValidation = 'максимальная длина одного хэш-тега 20 символов, включая решётку #';
       case !REGULAR_EXPRESSION_FOR_HASHTAGS.test(hashtag):
-        resultOfCheckValidation = 'хеш-тег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;';
-        break;
+        return resultOfCheckValidation = 'хеш-тег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;';
       case hashtags.length > MAX_HASHTAG_ARRAY_LENGTH:
-        resultOfCheckValidation = 'нельзя указать больше пяти хэш-тегов';
-        break;
+        return resultOfCheckValidation = 'нельзя указать больше пяти хэш-тегов';
       case checkArrayDuplicates(hashtags):
-        resultOfCheckValidation = 'один и тот же хэш-тег не может быть использован дважды';
-        break;
+        return resultOfCheckValidation = 'один и тот же хэш-тег не может быть использован дважды';
       default:
-        resultOfCheckValidation = false;
+        return null;
     }
   }
 
@@ -70,7 +67,7 @@ const commentsValidationHandler = (evt) => {
     evt.target.setCustomValidity('');
   }
 
-  return evt.target.reportValidity();
+  evt.target.reportValidity();
 };
 
 textHashtags.addEventListener('change', hashtagValidationHandler);
@@ -82,19 +79,41 @@ const openPhotoEditing = () => {
   document.addEventListener('keydown', onPhotoEditingKeydown);
   imageUploadCancel.addEventListener('click', onUploadCancelClick);
   setDefaultScale();
+
+  const file = imageUploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (file) {
+    if (matches) {
+      imgPreviewElement.src = URL.createObjectURL(file);
+    }
+  }
 };
 
-const closePhotoEditing = () => {
+export const closePhotoEditing = () => {
   imageUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   imageUploadInput.value = '';
   document.removeEventListener('keydown', onPhotoEditingKeydown);
   imageUploadCancel.removeEventListener('click', onUploadCancelClick);
   setDefaultFilter();
+  formUpload.reset();
+};
+
+export const sendForm = () => {
+  formUpload.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      'https://24.javascript.pages.academy/kekstagram',
+      new FormData(evt.target),
+    );
+  });
 };
 
 function onPhotoEditingKeydown(evt) {
-  if (!evt.target.closest('.img-upload__text') && (isEscapeKey(evt))) {
+  if (!evt.target.closest('.img-upload__text') && (isEscapeKey(evt.key))) {
     evt.preventDefault();
     closePhotoEditing();
   }
@@ -105,3 +124,5 @@ function onUploadCancelClick() {
 }
 
 imageUploadInput.addEventListener('change', openPhotoEditing);
+
+sendForm();
