@@ -1,7 +1,7 @@
 import {isEscapeKey} from './utils.js';
 import {MAX_ADD_COMMENTS} from './data.js';
 
-const fullSizePictureModal = document.querySelector('.big-picture');
+export const fullSizePictureModal = document.querySelector('.big-picture');
 const fullSizePictureModalImg = fullSizePictureModal.querySelector('.big-picture__img img');
 const likesCount = fullSizePictureModal.querySelector('.likes-count');
 const commentsCount = fullSizePictureModal.querySelector('.comments-count');
