@@ -13,6 +13,7 @@ const imageUploadOverlay = document.querySelector('.img-upload__overlay');
 const imageUploadCancel = document.querySelector('.img-upload__cancel');
 const textHashtags = document.querySelector('.text__hashtags');
 const textComment = document.querySelector('.text__description');
+const formUpload = document.querySelector('.img-upload__form');
 
 const checkHashtagValidation = (hashtags) => {
   let resultOfCheckValidation = '';
@@ -41,7 +42,7 @@ const checkHashtagValidation = (hashtags) => {
         resultOfCheckValidation = 'один и тот же хэш-тег не может быть использован дважды';
         break;
       default:
-        resultOfCheckValidation = false;
+        resultOfCheckValidation = null;
     }
   }
 
@@ -94,7 +95,7 @@ const closePhotoEditing = () => {
 };
 
 function onPhotoEditingKeydown(evt) {
-  if (!evt.target.closest('.img-upload__text') && (isEscapeKey(evt))) {
+  if (!evt.target.closest('.img-upload__text') && (isEscapeKey(evt.key))) {
     evt.preventDefault();
     closePhotoEditing();
   }

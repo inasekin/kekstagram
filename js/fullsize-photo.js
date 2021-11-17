@@ -87,7 +87,7 @@ export const openFullSizePictureModal = (picture) => {
   closePictureBtn.addEventListener('click', closeFullSizePictureModal);
 };
 
-function closeFullSizePictureModal() {
+export function closeFullSizePictureModal() {
   fullSizePictureModal.classList.add('hidden');
   bodyNode.classList.remove('modal-open');
   clearComments();
