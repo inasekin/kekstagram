@@ -1,7 +1,8 @@
 import {isEscapeKey} from './utils.js';
 import {MAX_ADD_COMMENTS} from './data.js';
 
-const fullSizePictureModal = document.querySelector('.big-picture');
+export const fullSizePictureModal = document.querySelector('.big-picture');
+export const formImg = document.querySelector('.img-upload__preview img');
 const fullSizePictureModalImg = fullSizePictureModal.querySelector('.big-picture__img img');
 const likesCount = fullSizePictureModal.querySelector('.likes-count');
 const commentsCount = fullSizePictureModal.querySelector('.comments-count');
@@ -97,3 +98,13 @@ export function closeFullSizePictureModal() {
   btnLoadNewComments.removeEventListener('click', addCommentsToPost);
   closePictureBtn.removeEventListener('click', closeFullSizePictureModal);
 }
+
+export const setImageScale = (value) => {
+  formImg.style.transform = `scale(${value})`;
+};
+
+export const resetImage = () => {
+  formImg.className = '';
+  formImg.style = '';
+};
+
