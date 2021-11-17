@@ -1,6 +1,6 @@
-import {formImg, resetImage} from './scale.js';
+import { formImg, resetImage } from './fullsize-photo.js';
 
-const slider = document.querySelector('.effect-level__slider');
+export const slider = document.querySelector('.effect-level__slider');
 const effectButtons = document.querySelectorAll('.effects__radio');
 const effectList = document.querySelector('.effects__list');
 const effectLevel= document.querySelector('.effect-level__value');
@@ -60,23 +60,24 @@ slider.noUiSlider.on('update', (___, handle, values) => {
       break;
     default:
       formImg.style.filter = '';
-      effectLevel.valuse = '';
+      effectLevel.value = '';
   }
 });
 
 effectList.addEventListener('change', (evt) => {
   evt.preventDefault();
+  slider.noUiSlider.updateOptions(defaultParametersForNoUiSlider);
   setFilter(evt);
 });
 
 export const setDefaultFilter = () => {
   effectButtons.forEach((button) => {
     if (button.id === 'effect-none') {
-      button.setAttribute('checked', 'checked');
+      button.checked = true;
     }
+
     slider.style.display = 'none';
     resetImage();
-
     slider.noUiSlider.updateOptions(defaultParametersForNoUiSlider);
   });
 };

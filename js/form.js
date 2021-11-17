@@ -82,8 +82,8 @@ const openPhotoEditing = () => {
 
   const file = imageUploadInput.files[0];
   const fileName = file.name.toLowerCase();
-
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  setDefaultFilter();
 
   if (file) {
     if (matches) {
