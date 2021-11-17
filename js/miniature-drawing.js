@@ -1,39 +1,9 @@
-import {
-  MIN_DESCRIPTION_IDENTIFIER,
-  MAX_DESCRIPTION_IDENTIFIER,
-  MIN_NUMBER_OF_LIKES,
-  MAX_NUMBER_OF_LIKES,
-  MIN_NUMBER_FOR_LIKES,
-  MAX_NUMBER_FOR_LIKES,
-  DESCRIPTIONS,
-  NAMES,
-  COMMENTS
-} from './data.js';
-import {getRandomInt} from './utils.js';
 import {openFullSizePictureModal} from './fullsize-photo.js';
-
-const getRandomComment = () => ({
-  id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
-  avatar: `img/avatar-${getRandomInt(MIN_NUMBER_FOR_LIKES, MAX_NUMBER_FOR_LIKES)}.svg`,
-  message: COMMENTS[getRandomInt(0, COMMENTS.length - 1)],
-  name: NAMES[getRandomInt(0, NAMES.length - 1)],
-});
-
-const getRandomComments = () => Array.from({length: getRandomInt(MIN_NUMBER_FOR_LIKES, MAX_NUMBER_OF_LIKES)}, () => getRandomComment());
-
-const getRandomPhoto = () => ({
-  id: getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER),
-  url: `photos/${getRandomInt(MIN_DESCRIPTION_IDENTIFIER, MAX_DESCRIPTION_IDENTIFIER)}.jpg`,
-  DESCRIPTIONS: DESCRIPTIONS[getRandomInt(0, DESCRIPTIONS.length - 1)],
-  likes: getRandomInt(MIN_NUMBER_OF_LIKES, MAX_NUMBER_OF_LIKES),
-  comments: getRandomComments(),
-});
-
-const getArrayOfPhotos = () => Array.from({length: MAX_DESCRIPTION_IDENTIFIER}, () => getRandomPhoto());
+import {getData} from './api.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
-const photosList = getArrayOfPhotos();
+const LOAD_IMAGES_URL = 'https://24.javascript.pages.academy/kekstagram/data';
 
 const renderPhoto = (post) => {
   const clonePhotoElements = randomUserImageTemplate.cloneNode(true);
@@ -56,14 +26,20 @@ const renderPhotos = (posts) => {
   picturesContainer.appendChild(photosListFragment);
   return picturesContainer;
 };
-renderPhotos(photosList);
+
+getData(LOAD_IMAGES_URL).then((pictures) => {
+  renderPhotos(pictures);
+});
 
 const openPictureHandler = (evt) => {
   const pictureImg = evt.target.closest('a[class="picture"]');
   if (pictureImg) {
+    evt.preventDefault();
     const elementId = Number(pictureImg.dataset.id);
-    const currentPicture = photosList.find((el) => el.id === elementId);
-    openFullSizePictureModal(currentPicture);
+    getData(LOAD_IMAGES_URL).then((pictures) => {
+      const currentPicture = pictures.find((el) => el.id === elementId);
+      openFullSizePictureModal(currentPicture);
+    });
   }
 };
 picturesContainer.addEventListener('click', openPictureHandler);

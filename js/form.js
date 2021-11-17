@@ -74,7 +74,7 @@ const commentsValidationHandler = (evt) => {
     evt.target.setCustomValidity('');
   }
 
-  return evt.target.reportValidity();
+  evt.target.reportValidity();
 };
 
 textHashtags.addEventListener('change', hashtagValidationHandler);
@@ -115,9 +115,9 @@ export const sendForm = () => {
     sendData(
       'https://24.javascript.pages.academy/kekstagram',
       new FormData(evt.target),
-    ).then(r => console.log(r));
+    );
   });
-}
+};
 
 function onPhotoEditingKeydown(evt) {
   if (!evt.target.closest('.img-upload__text') && (isEscapeKey(evt.key))) {
@@ -131,3 +131,5 @@ function onUploadCancelClick() {
 }
 
 imageUploadInput.addEventListener('change', openPhotoEditing);
+
+sendForm();
