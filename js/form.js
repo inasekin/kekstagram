@@ -7,13 +7,16 @@ import {
   MAX_HASHTAG_ARRAY_LENGTH,
   REGULAR_EXPRESSION_FOR_HASHTAGS
 } from './data.js';
+import {sendData} from './api.js';
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const imageUploadInput = document.querySelector('.img-upload__input');
 const imageUploadOverlay = document.querySelector('.img-upload__overlay');
 const imageUploadCancel = document.querySelector('.img-upload__cancel');
 const textHashtags = document.querySelector('.text__hashtags');
 const textComment = document.querySelector('.text__description');
 const formUpload = document.querySelector('.img-upload__form');
+const imgPreviewElement = imageUploadOverlay.querySelector('.img-upload__preview  > img');
 
 const checkHashtagValidation = (hashtags) => {
   let resultOfCheckValidation = '';
@@ -83,6 +86,17 @@ const openPhotoEditing = () => {
   document.addEventListener('keydown', onPhotoEditingKeydown);
   imageUploadCancel.addEventListener('click', onUploadCancelClick);
   setDefaultScale();
+
+  const file = imageUploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (file) {
+    if (matches) {
+      imgPreviewElement.src = URL.createObjectURL(file);
+    }
+  }
 };
 
 const closePhotoEditing = () => {
@@ -92,7 +106,18 @@ const closePhotoEditing = () => {
   document.removeEventListener('keydown', onPhotoEditingKeydown);
   imageUploadCancel.removeEventListener('click', onUploadCancelClick);
   setDefaultFilter();
+  formUpload.reset();
 };
+
+export const sendForm = () => {
+  formUpload.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      'https://24.javascript.pages.academy/kekstagram',
+      new FormData(evt.target),
+    ).then(r => console.log(r));
+  });
+}
 
 function onPhotoEditingKeydown(evt) {
   if (!evt.target.closest('.img-upload__text') && (isEscapeKey(evt.key))) {
