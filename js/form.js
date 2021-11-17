@@ -99,7 +99,7 @@ const openPhotoEditing = () => {
   }
 };
 
-const closePhotoEditing = () => {
+export const closePhotoEditing = () => {
   imageUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   imageUploadInput.value = '';

@@ -1,4 +1,5 @@
-import {openFullSizePictureModal, closeFullSizePictureModal} from './fullsize-photo.js';
+import {closePhotoEditing} from './form.js';
+import {showModal} from './control-modals.js';
 
 const errorLoadElement = document.querySelector('#load-error').content;
 const errorTemplate = document.querySelector('#error').content;
@@ -9,7 +10,7 @@ export async function getData(url = '') {
     const response = await fetch(url);
     return await response.json();
   } catch (error) {
-    openFullSizePictureModal(errorLoadElement);
+    showModal(errorLoadElement);
   }
 }
 
@@ -20,10 +21,10 @@ export async function sendData(url = '', body) {
       body,
     });
     const json = await response.json();
-    openFullSizePictureModal(successModal);
-    closeFullSizePictureModal();
+    showModal(successModal);
+    closePhotoEditing();
     return json;
   } catch (error) {
-    openFullSizePictureModal(errorTemplate);
+    showModal(errorTemplate);
   }
 }
