@@ -1,14 +1,11 @@
 import {openFullSizePictureModal, fullSizePictureModal} from './fullsize-photo.js';
 import {getData} from './api.js';
+import {RANDOM_IMGS_COUNT, DELAY, OPACITY} from './data.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const randomUserImageTemplate = document.querySelector('#picture').content.querySelector('a.picture');
 const LOAD_IMAGES_URL = 'https://24.javascript.pages.academy/kekstagram/data';
 let userPictures = [];
-
-const RANDOM_IMGS_COUNT = 10;
-const DELAY = 500;
-const OPACITY = '1';
 
 const filters = {
   default: 'filter-default',
