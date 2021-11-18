@@ -13,3 +13,7 @@ export const VALUE_OF_DECIMAL_NUMBER_SYSTEM = 10;
 export const REGULAR_EXPRESSION_FOR_HASHTAGS = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
 export const MAX_ADD_COMMENTS = 5;
+
+export const RANDOM_IMGS_COUNT = 10;
+export const DELAY = 500;
+export const OPACITY = '1';
