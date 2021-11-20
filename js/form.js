@@ -20,7 +20,7 @@ const imgPreviewElement = imageUploadOverlay.querySelector('.img-upload__preview
 
 const checkHashtagValidation = (hashtags) => {
   let resultOfCheckValidation = '';
-  for (const hashtag of hashtags) {
+  hashtags.forEach((hashtag) => {
     switch (true) {
       case hashtags[0] === '':
         textHashtags.value = textHashtags.value.trim();
@@ -40,8 +40,7 @@ const checkHashtagValidation = (hashtags) => {
       default:
         return null;
     }
-  }
-
+  });
   return resultOfCheckValidation;
 };
 

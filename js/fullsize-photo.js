@@ -42,22 +42,23 @@ const createComments = (commentsArray) => {
   });
 
   lastCommentIndex = lastCommentIndex + listOfComments.childElementCount;
-
-  if (lastCommentIndex >= commentsArray.length) {
-    btnLoadNewComments.classList.add('hidden');
-  }
   commentCounterViews.textContent = lastCommentIndex;
   return listOfComments;
 };
 
-const addCommentsToPost = () => {
+const addCommentsToPostHandler = () => {
   socialComments.appendChild(createComments(currentPostCommentsArray));
+  if (lastCommentIndex >= currentPostCommentsArray.length) {
+    btnLoadNewComments.classList.add('hidden');
+  } else {
+    btnLoadNewComments.classList.remove('hidden');
+  }
 };
 
 const onCloseKeydown = (evt) => {
   if (isEscapeKey(evt.key)) {
     evt.preventDefault();
-    closeFullSizePictureModal();
+    closeFullSizePictureModalHandler();
   }
 };
 
@@ -72,7 +73,7 @@ const renderFullSizePictureModal = (picture) => {
 
   commentCounterViews.textContent = lastCommentIndex;
   clearComments();
-  addCommentsToPost(currentPostCommentsArray);
+  addCommentsToPostHandler(currentPostCommentsArray);
   bodyNode.classList.add('modal-open');
   fullSizePictureModal.classList.remove('hidden');
 
@@ -83,20 +84,19 @@ export const openFullSizePictureModal = (picture) => {
   renderFullSizePictureModal(picture);
 
   document.addEventListener('keydown', onCloseKeydown);
-
-  btnLoadNewComments.addEventListener('click', addCommentsToPost);
-  closePictureBtn.addEventListener('click', closeFullSizePictureModal);
+  btnLoadNewComments.addEventListener('click', addCommentsToPostHandler);
+  closePictureBtn.addEventListener('click', closeFullSizePictureModalHandler);
 };
 
-export function closeFullSizePictureModal() {
+export function closeFullSizePictureModalHandler() {
   fullSizePictureModal.classList.add('hidden');
   bodyNode.classList.remove('modal-open');
   clearComments();
 
-  document.removeEventListener('click', closeFullSizePictureModal);
+  document.removeEventListener('click', closeFullSizePictureModalHandler);
 
-  btnLoadNewComments.removeEventListener('click', addCommentsToPost);
-  closePictureBtn.removeEventListener('click', closeFullSizePictureModal);
+  btnLoadNewComments.removeEventListener('click', addCommentsToPostHandler);
+  closePictureBtn.removeEventListener('click', closeFullSizePictureModalHandler);
 }
 
 export const setImageScale = (value) => {

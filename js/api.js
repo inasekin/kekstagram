@@ -26,5 +26,6 @@ export async function sendData(url = '', body) {
     return json;
   } catch (error) {
     showModal(errorTemplate);
+    closePhotoEditing();
   }
 }

@@ -97,7 +97,7 @@ const getRandomImages = (pictures, picturesCount) => {
   return newArray;
 };
 
-const removeCloseFullSizePictureModalEventListener = () => {
+const removecloseFullSizePictureModalHandlerEventListener = () => {
   fullSizePictureModal.removeEventListener('click', openPictureHandler);
 };
 
@@ -111,21 +111,18 @@ function onFilterClick(defaultPictures, sortedPictures) {
   }
   switch (document.activeElement.id) {
     case filters.default:
-      removeCloseFullSizePictureModalEventListener();
+      removecloseFullSizePictureModalHandlerEventListener();
       renderPhotos(defaultPictures);
-      openFullSizePictureModal(defaultPictures);
       break;
     case filters.random:
       sortedPictures = getRandomImages(defaultPictures, RANDOM_IMGS_COUNT);
-      removeCloseFullSizePictureModalEventListener();
+      removecloseFullSizePictureModalHandlerEventListener();
       renderPhotos(sortedPictures);
-      openFullSizePictureModal(sortedPictures);
       break;
     case filters.discussed:
-      sortedPictures = _.sortBy(defaultPictures, 'likes').reverse();
-      removeCloseFullSizePictureModalEventListener();
+      sortedPictures = _.sortBy(defaultPictures, 'comments').reverse();
+      removecloseFullSizePictureModalHandlerEventListener();
       renderPhotos(sortedPictures);
-      openFullSizePictureModal(sortedPictures);
       break;
   }
 }
