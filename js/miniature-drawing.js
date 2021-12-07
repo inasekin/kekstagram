@@ -1,4 +1,5 @@
 import {openFullSizePictureModal, fullSizePictureModal} from './fullsize-photo.js';
+import {RANDOM_IMGS_COUNT, DELAY, OPACITY} from './data.js';
 import {getData} from './api.js';
 import {RANDOM_IMGS_COUNT, DELAY, OPACITY} from './data.js';
 
